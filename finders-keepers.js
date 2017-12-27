@@ -1,5 +1,10 @@
+// via finds all that assert true 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+// find is better 
+// because only want first 
 function findElement(arr, func) {
-    return arr.filter(func)[0];
+    return arr.find(func);
 }
 
 findElement([1, 2, 3, 4], function (num) {
