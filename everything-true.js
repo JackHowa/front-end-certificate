@@ -1,6 +1,6 @@
 function truthCheck(collection, pre) {
   for (let userElement of collection) {
-    if (!(userElement[pre] === true || typeof userElement[pre] === "string")) {
+    if (Boolean(userElement[pre]) === false) {
       return false;
     }
   }
