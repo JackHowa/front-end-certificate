@@ -1,16 +1,14 @@
 function binaryAgent(str) {
   const binaryArray = str.split(" ");
-  return binaryArray.map(e => binaryToLetter(e));
+  return binaryArray
+    .map(binaryElement => binaryToLetter(binaryElement))
+    .join(""); // join the ['A','r' ...] with no space
 }
 
 function binaryToLetter(binaryElement) {
   let decimalNum = parseInt(binaryElement, 2);
   return String.fromCharCode(decimalNum);
 }
-
-const firstLetterTest = binaryToLetter("01000001");
-
-console.log(firstLetterTest); // A
 
 const manyLettersTest = binaryAgent(
   "01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111"
