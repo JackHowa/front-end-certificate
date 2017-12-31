@@ -2,8 +2,15 @@ function addTogether() {
   if (!(Number.isInteger(arguments[0]) && Number.isInteger(arguments[1]))) {
     return undefined;
   }
-  return arguments[0] + arguments[1];
-  function addMoreTogether() {}
+  let addMoreFunction = function addMoreTogether(secondArgument) {
+    return secondArgument;
+  };
+
+  return arguments[0] + addMoreFunction;
+}
+
+function checkInteger(potentialInteger) {
+  return Number.isInteger(potentialInteger);
 }
 
 // It has to add two numbers passed as parameters and return the sum.
@@ -23,3 +30,8 @@ console.log("should be undefined:", oneInvalidArg);
 
 // It has to check if it has one or two arguments passed. More are ignored.
 // If it has only one argument then it has to return a function that uses that number and expects another one, to then add it.
+
+// var launchMissiles = function(value) {
+//   return value;
+// };
+// console.log(launchMissiles(4)); returns 4
