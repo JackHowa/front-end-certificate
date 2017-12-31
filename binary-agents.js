@@ -1,5 +1,5 @@
 function binaryAgent(str) {
-  return String.fromCharCode(str);
+  return parseInt(str, 2);
 }
 
 const firstLetterTest = binaryAgent("01000001");
