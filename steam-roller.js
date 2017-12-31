@@ -2,21 +2,19 @@ function steamrollArray(arr) {
   let flatArray = [];
 
   for (let index = 0; index < arr.length; index++) {
-    if (arr[index].isArray) {
-      flatArray.push(arr[index][0]);
+    if (Array.isArray(arr[index])) {
+      if (Array.isArray(arr[index][0])) {
+        console.log("array of array");
+        flatArray.push(arr[index][0][0]);
+      } else {
+        flatArray.push(arr[index][0]);
+      }
+    } else {
+      flatArray.push(arr[index]);
     }
   }
 
   return flatArray;
-
-
-
-  // may want to iterate and check through each element is array
-  // then check each
-  // if one is array
-  // then spread?
-  // possibly recurse
-  // or while loop
 }
 
 const firstTest = steamrollArray([1, [2],
