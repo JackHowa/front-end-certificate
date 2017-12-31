@@ -1,7 +1,10 @@
 function truthCheck(collection, pre) {
   for (let userElement of collection) {
-    console.log(userElement);
+    if (!(userElement[pre] === true || typeof userElement[pre] === "string")) {
+      return false;
+    }
   }
+  return true;
 }
 
 truthCheck(
