@@ -1,4 +1,5 @@
 function addTogether() {
+  const outerFunctionFirstArg = arguments[0];
   if (arguments.length === 2) {
     if (!(Number.isInteger(arguments[0]) && Number.isInteger(arguments[1]))) {
       return undefined;
@@ -13,8 +14,11 @@ function addTogether() {
       // ok have to accomodate for clojures 
       return function (extraArg) {
         // addTogether(2, "3") should return undefined.
-        if (!(Number.isInteger(arguments[0]))) {
+        if (!(Number.isInteger(extraArg))) {
           return undefined;
+        } else {
+          // scope issue have to define the first arguments from outer function 
+          return outerFunctionFirstArg + extraArg;
         }
       };
     }
