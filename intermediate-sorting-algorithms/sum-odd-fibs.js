@@ -10,7 +10,7 @@ function sumFibs(num) {
 			fibs.push(i); 
 		} else {
 			current = fibs[i - 2] + fibs[i - 1];
-			if (current < num) {
+			if (current <= num) {
 				// ensure that only numbers less than or equal to num pushed into array
 				fibs.push(current);
 			}
@@ -23,7 +23,7 @@ function sumFibs(num) {
 	return onlyOdds.reduce((prev, curr) => prev + curr );
 }   
   
-console.log(sumFibs(4)); 
+console.log(sumFibs(75025)); 
 
 
 
