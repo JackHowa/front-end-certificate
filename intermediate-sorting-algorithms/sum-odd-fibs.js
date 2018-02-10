@@ -1,5 +1,4 @@
 function sumFibs(num) {
-
 	// construct array of fibs only up to num 
 	// set empty container 
 	let fibs = [];
@@ -11,11 +10,17 @@ function sumFibs(num) {
 			fibs.push(i); 
 		} else {
 			current = fibs[i - 2] + fibs[i - 1];
-			fibs.push(current);
+			if (current < num) {
+				// ensure that only numbers less than or equal to num pushed into array
+				fibs.push(current);
+			}
 		}
 		i++;
 	}
-	return current;
+
+	// now need to filter out even numbers 
+	let onlyOdds = fibs.filter(fibNum => fibNum % 2 != 0);
+	return onlyOdds.reduce((prev, curr) => prev + curr );
 }   
   
 console.log(sumFibs(4)); 
