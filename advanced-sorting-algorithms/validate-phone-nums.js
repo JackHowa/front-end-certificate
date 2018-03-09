@@ -1,16 +1,8 @@
 function telephoneCheck(str) {
-
-	let regex = /(?<areaCode>\d{3})/u;
-	let result = str.replace(regex, (...args) => {
-		let {areaCode} = args[args.length - 1];
-		return `{$areaCode}`;
-	});
-
-  // const firstThreeNums = RegExp('/^\d{3}/', 'g'); // first three characters are digits
-  // return str.match(firstThreeNums) ? true : false; // use ternary
-   
-  
+	const regex = /(^\d{3}|^\d{1} \d{3})-\d{3}-\d{4}/g;
+	return str.match(regex) ? true : false;
 }
 
 console.log(telephoneCheck("555-555-5555"));
-
+console.log(telephoneCheck("1 555-555-5555")); 
+console.log(telephoneCheck("1 (555) 555-5555"));
