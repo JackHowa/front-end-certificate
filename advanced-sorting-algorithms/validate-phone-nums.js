@@ -1,6 +1,13 @@
 function telephoneCheck(str) {
-	const regex = /(^\d{3}|^\d{1} \d{3})-\d{3}-\d{4}/g;
-	return str.match(regex) ? true : false;
+	let threeDigits = "\\d{3}";
+	let fourDigits = "\\d{4}";
+	let optionalCountrySpace = "\(" + "\\d{1} " + "\|\)";
+
+	let regexString = "^" + optionalCountrySpace + threeDigits + "-" + threeDigits + "-" + fourDigits;
+
+	var re = new RegExp(regexString, 'g');
+	
+	return str.match(re) ? true : false;
 }
 
 console.log(telephoneCheck("555-555-5555"));
