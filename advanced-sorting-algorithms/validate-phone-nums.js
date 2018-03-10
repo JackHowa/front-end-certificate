@@ -13,10 +13,27 @@ function telephoneCheck(str) {
 
 	let regexString = "^" + optionalCountrySpace + openParenthesis + threeDigits + enclosingParenthesis + threeDigits + optionalDash + fourDigits + "$";
 
-	var re = new RegExp(regexString, 'g');
+	let re = new RegExp(regexString, 'g');
 
-	return str.match(re) ? true : false;
+
+	// could make sure that this is and 
+	// return (str.match(re) ? true : false) && checkParenPairs(str);
+	return (str.match(re) ? true : false)
 }
+
+// (a)?b(?(1)c|d)
+// function checkParenPairs(str) {
+// 	let string = "\(" + 
+// 	let re = new RegExp("\(?\((\))[)]", 'g');
+// 	return str.match(re) ? true : false;
+// }
+
+// may just need to hardcode 
+// if one paren, then need another somewhere 
+// have to ensure that this remains false though 
+// telephoneCheck("(555)5(55?)-5555")
+
+
 
 console.log(telephoneCheck("555-555-5555"));
 console.log(telephoneCheck("1 555-555-5555")); 
