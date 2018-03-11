@@ -30,11 +30,21 @@ var collectionCopy = JSON.parse(JSON.stringify(collection));
 // Only change code below this line
 function updateRecords(id, prop, value) {
 	// separate logic for tracks
-	if (prop === "tracks") {
+
+	if (prop === "tracks" && value == "") {
+		delete collection[id][prop];
+	} else if (prop === "tracks") {
 		handleTracks(id, prop, value);
+		return collection;
 	}
 
-	return collection[id];
+	if (value != "") {
+		collection[id][prop] = value;
+	} else {
+		delete collection[id][prop];
+	}
+
+	return collection;
 }
 
 function handleTracks(id, prop, value) {
