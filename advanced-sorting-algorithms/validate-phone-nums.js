@@ -22,11 +22,11 @@ function telephoneCheck(str) {
 }
 
 // (a)?b(?(1)c|d)
-// function checkParenPairs(str) {
-// 	let string = "\(" + 
-// 	let re = new RegExp("\(?\((\))[)]", 'g');
-// 	return str.match(re) ? true : false;
-// }
+function checkParenPairs(str) {
+	let string = "\(" + 
+	let re = new RegExp("\(?\((\))[)]", 'g');
+	return str.match(re) ? true : false;
+}
 
 // may just need to hardcode 
 // if one paren, then need another somewhere 
