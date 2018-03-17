@@ -1,6 +1,9 @@
 function sym(args) {
   let argumentArray = Array.from(arguments); // [ [ 1, 2, 5 ], [ 2, 3, 5 ], [ 3, 4, 5 ] ]
+  
+  // have to dedupe them first 
   return argumentArray.reduce( (symmetricDifferences, currentArray) => {
+    currentArray = removeDuplicatesFromTheArray(currentArray);
     return findUniques(symmetricDifferences, currentArray);
   }, [])
 }
@@ -10,8 +13,6 @@ function removeDuplicatesFromTheArray(array) {
 }
 
 function findUniques(firstArray, secondArray = []) {
-  firstArray = removeDuplicatesFromTheArray(firstArray);
-  secondArray = removeDuplicatesFromTheArray(secondArray);
 
   let flatArray = firstArray.concat(secondArray);
     
