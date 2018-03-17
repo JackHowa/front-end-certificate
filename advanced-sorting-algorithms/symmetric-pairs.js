@@ -1,10 +1,11 @@
 function sym(args) {
-  let argumentArray = Array.from(arguments); // [ [ 1, 2, 5 ], [ 2, 3, 5 ], [ 3, 4, 5 ] ]
-  
-  // have to dedupe them first 
-  return argumentArray.reduce( (symmetricDifferences, currentArray) => {
+  let argumentsArray = Array.from(arguments); // [ [ 1, 2, 5 ], [ 2, 3, 5 ], [ 3, 4, 5 ] ]
+
+  return argumentsArray.reduce( (symmetricDifferences, currentArray) => {
+    // have to dedupe them first 
     currentArray = removeDuplicatesFromTheArray(currentArray);
-    return findUniques(symmetricDifferences, currentArray);
+    let flatArray = symmetricDifferences.concat(currentArray);
+    return findUniques(flatArray);
   }, [])
 }
 
@@ -12,10 +13,7 @@ function removeDuplicatesFromTheArray(array) {
   return Array.from(new Set(array));
 }
 
-function findUniques(firstArray, secondArray = []) {
-
-  let flatArray = firstArray.concat(secondArray);
-    
+function findUniques(flatArray) {
     // count occurences of flat array 
     let matchesCount = flatArray.reduce( (existingNumbers, currentNumber) => {
       if (currentNumber in existingNumbers) {
