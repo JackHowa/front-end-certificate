@@ -1,11 +1,27 @@
 function checkCashRegister(price, cash, cid) {
-  return cid.reduce( (remainingCash, castPerCurrency) => {
-      let highestCash = cid.pop();
-      remainingCash = highestCash[1] - cash;
-      return remainingCash;
+  while (cash > 0) {
+    let [currency, amountOfCurrency] = cid.pop();
+    if (typeof amountOfCurrency === "undefined") {
+      return "Insufficient Funds";
+    }
+    // have to map the amounts per cash currency 
+    // like a hundred should, first, only go in fully as 100 to the totalCash 
+    // furthermore, that amount should only go in as much as cash allows
+    // in essence, you shouldn't charge the customer if they can't fully use all of the money
+    // per currency 
+    cash -= amountOfCurrency;
+    console.log(cash);
 
-    }, 0)
   }
+}
+
+
+    // return cid.reduce( (remainingCash, castPerCurrency) => {
+  //     let highestCash = cid.pop();
+  //     remainingCash = highestCash[1] - cash;
+  //     return remainingCash;
+
+  //   }, 0)
   
   // Example cash-in-drawer array:
   // [["PENNY", 1.01],
