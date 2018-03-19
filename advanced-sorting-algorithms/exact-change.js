@@ -1,6 +1,7 @@
 function checkCashRegister(price, cash, cid) {
   const CONVERSION_SEQUENCE = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01];
   let conversionIndex = 0;
+  let newCashInDrawer = [];
 
   let changeToGiveBack = cash - price;
   while (changeToGiveBack > 0) {
@@ -32,11 +33,20 @@ function checkCashRegister(price, cash, cid) {
     
     // need to update the cash drawer
     // difficult to use pop then because it's destructive of the array
-    cid[]
+    // need to update amountOfCurrency by subtracting similar to 
+    amountOfCurrency -= (howManyCurrency * CONVERSION_SEQUENCE[conversionIndex]);
+    
+    // can use unshift to always add to the front 
+    // this will only go through what we get to
+    // todo: might miss pennies if we get exact change 
+
+    // need to do this ([hey] | [ho, hi]) => [hey, ho, hi] in ruby 
+    newCashInDrawer.unshift([currency, amountOfCurrency]);
+
     conversionIndex ++;
     console.log(changeToGiveBack);
   }
-  return 
+  return newCashInDrawer;
 }
   
   // Example cash-in-drawer array:
