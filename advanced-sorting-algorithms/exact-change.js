@@ -1,27 +1,43 @@
 function checkCashRegister(price, cash, cid) {
-  while (cash > 0) {
+  const CONVERSION_SEQUENCE = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01];
+  let conversionIndex = 0;
+
+  let changeToGiveBack = cash - price;
+  while (changeToGiveBack > 0) {
+    // use pop to start at the end of the array of arrays
+    // [1,2,4] will start with 4 now
+    // [...,["TWENTY", 60.00], ["ONE HUNDRED", 100.00]])]
     let [currency, amountOfCurrency] = cid.pop();
+
     if (typeof amountOfCurrency === "undefined") {
+      // there's no more pennies left to fulfill the total amount 
+      // the while loop has exceeded the amount of money left
+      // basically there's cash left from the customer, but not in the register 
       return "Insufficient Funds";
     }
+
+
     // have to map the amounts per cash currency 
-    // like a hundred should, first, only go in fully as 100 to the totalCash 
+
     // furthermore, that amount should only go in as much as cash allows
     // in essence, you shouldn't charge the customer if they can't fully use all of the money
     // per currency 
-    cash -= amountOfCurrency;
-    console.log(cash);
 
+    // how many times base currency goes into cash from customer
+    // like a hundred should, first, only go in fully as 100 to the totalCash 
+    // 0 if bill goes over even what can be alloted
+    let howManyCurrency = Math.floor(changeToGiveBack / CONVERSION_SEQUENCE[conversionIndex]); 
+    
+    changeToGiveBack -= (howManyCurrency * CONVERSION_SEQUENCE[conversionIndex]);
+    
+    // need to update the cash drawer
+    // difficult to use pop then because it's destructive of the array
+    cid[]
+    conversionIndex ++;
+    console.log(changeToGiveBack);
   }
+  return 
 }
-
-
-    // return cid.reduce( (remainingCash, castPerCurrency) => {
-  //     let highestCash = cid.pop();
-  //     remainingCash = highestCash[1] - cash;
-  //     return remainingCash;
-
-  //   }, 0)
   
   // Example cash-in-drawer array:
   // [["PENNY", 1.01],
