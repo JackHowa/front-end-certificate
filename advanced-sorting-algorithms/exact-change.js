@@ -1,43 +1,86 @@
-function checkCashRegister(price, cash, cid) {
-  const CONVERSION_SEQUENCE = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01];
+function checkCashRegister(productPrice, cashGiven, cashInDrawer) {
+  let cashDifference = cashGiven - productPrice;
 
-  let conversionIndex = 0;
-  let totalChangePerCategory = [];
+  // want this to show highest change possible amount 
+  // [["QUARTER", 0.50], ["PENNY", 0.01]] for cashDifference of 0.51 
+  let cashChangePerCurrency = [];
 
-  let changeToGiveBack = cash - price;
-  while(changeToGiveBack > 0) {
-    // use pop to start at the end of the array of arrays
-    // [1,2,4] will start with 4 now
-    // [...,["TWENTY", 60.00], ["ONE HUNDRED", 100.00]])]
-    let [currency, amountOfCurrency] = cid.pop();
+  const CASH_VALUE_ASCENDING = [ 0.01, 0.05, 0.1, 0.25, 1, 5, 10, 25, 1, 5, 10, 20, 100 ];
+  
+  // array length is not zero indexed by default 
+  let positionWithinCashMachine = cashInDrawer.length - 1;
 
-    let howManyCurrency = Math.floor(changeToGiveBack / CONVERSION_SEQUENCE[conversionIndex]); 
+  // don't want to iterate unneccessarily through currency we don't need
+  while (cashDifference > 0 && positionWithinCashMachine >= 0) {
+    let cashInDrawerValue = CASH_VALUE_ASCENDING[positionWithinCashMachine];
 
-    let totalAmountPerCurrency = howManyCurrency * CONVERSION_SEQUENCE[conversionIndex];
+    // console.log(cashInDrawer[positionWithinCashMachine]);
+    let [cashInDrawerName, cashInDrawerPerCurrency] = cashInDrawer[positionWithinCashMachine];
 
-    console.log(totalAmountPerCurrency);
+    let cashChangePerCurrencyPossible = findPossibleChangePerCurrency(cashDifference, cashInDrawer, cashInDrawerValue);
 
-    // oh, I need to take what's left of the total amount in drawer, not 
-    // all or nothing. just because can't give all 100s for exact
-    // change doesn't mean I need to not give any at all 
-    if (0 < totalAmountPerCurrency && totalAmountPerCurrency < amountOfCurrency) {
-      changeToGiveBack -= totalAmountPerCurrency;
-      
-      // don't really need to update list
-      // amountOfCurrency -= totalAmountPerCurrency;
-      // can use unshift to always add to the front 
-      // this will only go through what we get to
-      // todo: might miss pennies if we get exact change 
-
-      // need to do this ([hey] | [ho, hi]) => [hey, ho, hi] in ruby 
-      totalChangePerCategory.unshift([currency, totalAmountPerCurrency]);
+    let cashChangePerCurrencyActual = cashChangePerCurrencyPossible - cashInDrawerPerCurrency;
+    // console.log(cashChangePerCurrencyActual);
+    if (cashChangePerCurrencyActual > 0) {
+      cashDifference -= cashChangePerCurrencyActual;
+      cashChangePerCurrency.unshift([cashInDrawerName, cashChangePerCurrencyActual]);
     }
-    conversionIndex++;
-  }
 
-  // Otherwise, return change in coin and bills, sorted in highest to lowest order.
-  return totalChangePerCategory;
+    positionWithinCashMachine--;
+  }
+  return cashChangePerCurrency;
 }
+
+function findPossibleChangePerCurrency(cashDifference, cashInDrawer, cashInDrawerValue) {
+  // whole number that that currency will go into
+  let howManyCurrencyPossible = Math.floor(cashDifference / cashInDrawerValue); 
+  console.log(howManyCurrencyPossible);
+  let cashChangePerCurrencyPossible = howManyCurrencyPossible * cashInDrawerValue;
+
+  return cashChangePerCurrencyPossible;
+}
+
+
+// function checkCashRegister(price, cash, cid) {
+//   const CONVERSION_SEQUENCE = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01];
+
+//   let conversionIndex = 0;
+//   let totalChangePerCategory = [];
+
+//   let changeToGiveBack = cash - price;
+//   while(changeToGiveBack > 0) {
+//     // use pop to start at the end of the array of arrays
+//     // [1,2,4] will start with 4 now
+//     // [...,["TWENTY", 60.00], ["ONE HUNDRED", 100.00]])]
+//     let [currency, amountOfCurrency] = cid.pop();
+
+//     let howManyCurrency = Math.floor(changeToGiveBack / CONVERSION_SEQUENCE[conversionIndex]); 
+
+//     let totalAmountPerCurrency = howManyCurrency * CONVERSION_SEQUENCE[conversionIndex];
+
+//     console.log(totalAmountPerCurrency);
+
+//     // oh, I need to take what's left of the total amount in drawer, not 
+//     // all or nothing. just because can't give all 100s for exact
+//     // change doesn't mean I need to not give any at all 
+//     if (0 < totalAmountPerCurrency && totalAmountPerCurrency < amountOfCurrency) {
+//       changeToGiveBack -= totalAmountPerCurrency;
+      
+//       // don't really need to update list
+//       // amountOfCurrency -= totalAmountPerCurrency;
+//       // can use unshift to always add to the front 
+//       // this will only go through what we get to
+//       // todo: might miss pennies if we get exact change 
+
+//       // need to do this ([hey] | [ho, hi]) => [hey, ho, hi] in ruby 
+//       totalChangePerCategory.unshift([currency, totalAmountPerCurrency]);
+//     }
+//     conversionIndex++;
+//   }
+
+//   // Otherwise, return change in coin and bills, sorted in highest to lowest order.
+//   return totalChangePerCategory;
+// }
   
   // Example cash-in-drawer array:
   // [["PENNY", 1.01],
