@@ -20,10 +20,12 @@ function checkCashRegister(productPrice, cashGiven, cashInDrawer) {
     let cashChangePerCurrencyPossible = findPossibleChangePerCurrency(cashDifference, cashInDrawer, cashInDrawerValue);
 
     let cashChangePerCurrencyActual = cashChangePerCurrencyPossible - cashInDrawerPerCurrency;
+    cashChangePerCurrencyActual = Math.round(cashChangePerCurrencyActual * 100) / 100;
     // console.log(cashChangePerCurrencyActual);
     if (cashChangePerCurrencyActual > 0) {
+      cashChangePerCurrencyActual -= cashDifference;
       cashDifference -= cashChangePerCurrencyActual;
-      cashChangePerCurrency.unshift([cashInDrawerName, cashChangePerCurrencyActual]);
+      cashChangePerCurrency.push([cashInDrawerName, cashChangePerCurrencyActual]);
     }
 
     positionWithinCashMachine--;
@@ -34,9 +36,9 @@ function checkCashRegister(productPrice, cashGiven, cashInDrawer) {
 function findPossibleChangePerCurrency(cashDifference, cashInDrawer, cashInDrawerValue) {
   // whole number that that currency will go into
   let howManyCurrencyPossible = Math.floor(cashDifference / cashInDrawerValue); 
-  console.log(howManyCurrencyPossible);
-  let cashChangePerCurrencyPossible = howManyCurrencyPossible * cashInDrawerValue;
 
+  let cashChangePerCurrencyPossible = howManyCurrencyPossible * cashInDrawerValue;
+  cashChangePerCurrencyPossible = Math.round(cashChangePerCurrencyPossible * 100) / 100;
   return cashChangePerCurrencyPossible;
 }
 
