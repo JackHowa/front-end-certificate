@@ -1,7 +1,6 @@
 // subtract price of item from cash given for item  
 // setup a dictionary for cash currency name to value 
-// find how many notes go into the cash in drawer value 
-// create a new array with cash in drawer name and quantity 
+
 
 // setup an array for cash currency name to value 
 const CASH_VALUE_ASCENDING = [ 0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100 ];
@@ -12,14 +11,15 @@ function checkCashRegister(price, cash, cid) {
 
 	let drawerCurrencyFrequency = [];
 
-	for (let i = 0; i < cid.length; i++) {
-		let [drawerCurrencyName, drawerAmount] = cid[i];
+	// find how many notes go into the cash in drawer value 
+	// create a new array with cash in drawer name and quantity 
+	let drawerNameAndQuantity = cid.map((drawerNameAndTotal, index) => {
+		let [drawerCurrencyName, drawerAmount] = drawerNameAndTotal;
+		let drawerCurrencyQuantity = Math.floor(drawerAmount / CASH_VALUE_ASCENDING[index]);
+		return [drawerCurrencyName, drawerCurrencyQuantity];
+	});
 
-		// find how many notes go into the cash in drawer value 
-		let drawerCurrencyQuantity = Math.floor(drawerAmount / CASH_VALUE_ASCENDING[i]);
 
-		console.log(drawerCurrencyQuantity);
-	}
 }
 
 function round(numberInput) {
