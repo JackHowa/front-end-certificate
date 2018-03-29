@@ -56,8 +56,6 @@ function checkCashRegister(price, cash, cid) {
 		// will have to round it after each subtraction
 		cashChange = Math.round(cashChange * 100) / 100;
 
-		console.log(cashChange);
-
 		// iterate the index backward 
 		registerIndex--;
 	}
