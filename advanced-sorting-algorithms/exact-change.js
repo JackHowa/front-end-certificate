@@ -34,21 +34,9 @@ function checkCashRegister(price, cash, cid) {
 		let changeCurrencyQuantity = Math.floor(cashChange / currencyCashValue);
 
 		// figure out how much change you can give 
-		let actualChangeCurrencyQuantity;
-
-		// (9 dimes possible, 12 dimes actual)
-		if (changeCurrencyQuantity < drawerCurrencyQuantity) {
-			// if you have more change than you can return to the customer 
-			// just give the most you can return 
-			actualChangeCurrencyQuantity = changeCurrencyQuantity;
-		} else {
-			// change currency quantity (10 dimes) possible - existing dimes 15 
-			// if you can give more change than you have 
-			// give all the change you got (9 dimes)
-			// (10 dimes possible, 9 dimes actual)
-			// do the best you can do 
-			actualChangeCurrencyQuantity = drawerCurrencyQuantity;
-		}
+		let actualChangeCurrencyQuantity = changeCurrencyQuantity < drawerCurrencyQuantity 
+			? changeCurrencyQuantity : 
+			drawerCurrencyQuantity;
 
 		// convert that currency quantity back into money 
 		let actualChangeMoney = actualChangeCurrencyQuantity * currencyCashValue;
