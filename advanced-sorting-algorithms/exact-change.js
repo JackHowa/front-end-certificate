@@ -76,6 +76,15 @@ function checkCashRegister(price, cash, cid) {
 		registerIndex--;
 	}
 
+	// not the prettiest last check
+	let totalChange = currencyAndAmount.reduce( (total, currencyNameAndCash) => {
+		return total += currencyNameAndCash[1];
+	}, 0.0);
+
+	if (totalChange < (cash - price)) {
+		return "Insufficient Funds";
+	}
+
 	// return array of the cash name and currency total money amount 
 	return currencyAndAmount;
 }
