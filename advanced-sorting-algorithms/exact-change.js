@@ -10,23 +10,22 @@ const CASH_VALUE_ASCENDING = [
   5.0,
   10.0,
   20.0,
-  100.0
+  100.0,
 ];
 
 function checkCashRegister(price, cash, cid) {
   // subtract price of item from cash given for item
   let cashChange = cash - price;
 
-  let totalCashInDrawer = cid.reduce((total, currencyNameAndCash) => {
-    return total + currencyNameAndCash[1];
-  }, 0.0);
+  let totalCashInDrawer = cid.reduce(
+      (total, currencyNameAndCash) => total + currencyNameAndCash[1]);
 
   totalCashInDrawer = Math.round(totalCashInDrawer * 100) / 100;
 
   if (totalCashInDrawer < cashChange) {
-    return "Insufficient Funds";
+    return 'Insufficient Funds';
   } else if (totalCashInDrawer === cashChange) {
-    return "Closed";
+    return 'Closed';
   }
 
   let registerIndex = 8;
@@ -47,9 +46,9 @@ function checkCashRegister(price, cash, cid) {
 
     // figure out how much change you can give
     let actualChangeCurrencyQuantity =
-      changeCurrencyQuantity < drawerCurrencyQuantity
-        ? changeCurrencyQuantity
-        : drawerCurrencyQuantity;
+        changeCurrencyQuantity < drawerCurrencyQuantity
+            ? changeCurrencyQuantity
+            : drawerCurrencyQuantity;
 
     // convert that currency quantity back into money
     let actualChangeMoney = actualChangeCurrencyQuantity * currencyCashValue;
@@ -75,12 +74,11 @@ function checkCashRegister(price, cash, cid) {
   }
 
   // not the prettiest last check
-  let totalChange = currencyAndAmount.reduce((total, currencyNameAndCash) => {
-    return total + currencyNameAndCash[1];
-  }, 0.0);
+  let totalChange = currencyAndAmount.reduce(
+      (total, currencyNameAndCash) => total + currencyNameAndCash[1]);
 
   if (totalChange < cash - price) {
-    return "Insufficient Funds";
+    return 'Insufficient Funds';
   }
 
   // return array of the cash name and currency total money amount
@@ -88,29 +86,29 @@ function checkCashRegister(price, cash, cid) {
 }
 
 console.log(
-  checkCashRegister(19.5, 20.0, [
-    ["PENNY", 1.01],
-    ["NICKEL", 2.05],
-    ["DIME", 3.1],
-    ["QUARTER", 4.25],
-    ["ONE", 90.0],
-    ["FIVE", 55.0],
-    ["TEN", 20.0],
-    ["TWENTY", 60.0],
-    ["ONE HUNDRED", 100.0]
-  ])
+    checkCashRegister(19.5, 20.0, [
+      ['PENNY', 1.01],
+      ['NICKEL', 2.05],
+      ['DIME', 3.1],
+      ['QUARTER', 4.25],
+      ['ONE', 90.0],
+      ['FIVE', 55.0],
+      ['TEN', 20.0],
+      ['TWENTY', 60.0],
+      ['ONE HUNDRED', 100.0],
+    ]),
 );
 
 console.log(
-  checkCashRegister(3.26, 100.0, [
-    ["PENNY", 1.01],
-    ["NICKEL", 2.05],
-    ["DIME", 3.1],
-    ["QUARTER", 4.25],
-    ["ONE", 90.0],
-    ["FIVE", 55.0],
-    ["TEN", 20.0],
-    ["TWENTY", 60.0],
-    ["ONE HUNDRED", 100.0]
-  ])
+    checkCashRegister(3.26, 100.0, [
+      ['PENNY', 1.01],
+      ['NICKEL', 2.05],
+      ['DIME', 3.1],
+      ['QUARTER', 4.25],
+      ['ONE', 90.0],
+      ['FIVE', 55.0],
+      ['TEN', 20.0],
+      ['TWENTY', 60.0],
+      ['ONE HUNDRED', 100.0],
+    ]),
 );
