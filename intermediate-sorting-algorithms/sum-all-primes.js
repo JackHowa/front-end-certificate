@@ -1,3 +1,5 @@
+// jshint esversion:6
+
 function sumPrimes(num) {
 	let primes = [];
 
@@ -20,7 +22,7 @@ function sumPrimes(num) {
 			primes.push(potentialPrime);
 		}
 	}
-	return primes;
+	return primes.reduce((prev, curr) => prev + curr );;
 }
 
 console.log(sumPrimes(10));
