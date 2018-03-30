@@ -8,7 +8,7 @@ function checkCashRegister(price, cash, cid) {
 	let cashChange = cash - price;
 
 	let totalCashInDrawer = cid.reduce( (total, currencyNameAndCash) => {
-    return total += currencyNameAndCash[1];
+    return total + currencyNameAndCash[1];
   }, 0.0);
 
   totalCashInDrawer = Math.round(totalCashInDrawer * 100) / 100;
@@ -23,7 +23,9 @@ function checkCashRegister(price, cash, cid) {
 
 	let currencyAndAmount = [];
 
-	while (cashChange > 0) {
+	// want to run out if sufficient funds going into it
+	// if cash change isn't done
+	while (cashChange > 0 && registerIndex >= 0) {
 		let currencyCashValue = CASH_VALUE_ASCENDING[registerIndex];
 
 		// find how many notes go into the cash in drawer value 
@@ -48,9 +50,6 @@ function checkCashRegister(price, cash, cid) {
 		// check if the change amount is zero 
 		if (actualChangeMoney !== 0) {
 			// put that new change in an array 
-			// keep trailing zeroes and round 
-			// need 60.00, even when rounds normally 60 
-			// also need a number 
 			currencyAndAmount.push([drawerCurrencyName, actualChangeMoney]);
 		}
 
@@ -66,7 +65,7 @@ function checkCashRegister(price, cash, cid) {
 
 	// not the prettiest last check
 	let totalChange = currencyAndAmount.reduce( (total, currencyNameAndCash) => {
-		return total += currencyNameAndCash[1];
+		return total + currencyNameAndCash[1];
 	}, 0.0);
 
 	if (totalChange < (cash - price)) {
@@ -80,5 +79,3 @@ function checkCashRegister(price, cash, cid) {
 console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 
 console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
-
-// float making and round to number via https://stackoverflow.com/a/24889569
