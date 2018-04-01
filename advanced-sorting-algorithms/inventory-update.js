@@ -7,11 +7,28 @@ function updateInventory(inventoryInitial, inventoryChange) {
   // else if the inventory change is not the same as the inventory's name
   // add that new change to the intial inventory
   // end loop
-  //
+  // return the new initial inventory
 
-  for (let i = 0; i < inventoryChange.length; i++) {
-    if (!(inventoryInitial.includes(inventoryChange[i]))) {
-      inventoryInitial.push(inventoryChange[i]);
+  // loop through all of the inventory change
+  for (let inventoryChangeIndex = 0; inventoryChangeIndex <
+  inventoryChange.length; inventoryChangeIndex++) {
+    // find the change in inventory's name
+    let [inventoryChangeAmount, inventoryChangeName] = inventoryChange[inventoryChangeIndex];
+
+    let inventoryInitialNames = inventoryInitial.map(
+        inventoryElement => inventoryElement[1]);
+
+    let indexFound = inventoryInitialNames.indexOf(inventoryChangeName);
+
+    // return -1 if not found
+    if (indexFound > -1) {
+      inventoryInitial[indexFound][0] += inventoryChangeAmount;
+
+      // update the inventory amount
+      // need to find the index of that includes
+    } else {
+      // add that new change to the intial inventory
+      inventoryInitial.push(inventoryChange[inventoryChangeIndex]);
     }
   }
 
