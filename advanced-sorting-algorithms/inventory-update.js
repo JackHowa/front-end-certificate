@@ -1,5 +1,10 @@
 function updateInventory(arr1, arr2) {
-  // All inventory must be accounted for or you're fired!
+  for (let i = 0; i < arr2.length; i++) {
+    if (!(arr1.includes(arr2[i]))) {
+      arr1.push(arr2[i]);
+    }
+  }
+
   return arr1;
 }
 
