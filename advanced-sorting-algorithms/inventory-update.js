@@ -32,7 +32,10 @@ function updateInventory(inventoryInitial, inventoryChange) {
     }
   }
 
-  return inventoryInitial;
+  // have to alphabetize
+  return inventoryInitial.sort(
+      (previousElement, currentElement) => previousElement[1].localeCompare(
+          currentElement[1]));
 }
 
 // Example inventory lists
